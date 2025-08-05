@@ -26,24 +26,24 @@ import 'package:subul_dashboard2/core/utils/api_service.dart';
 final getIt = GetIt.instance;
 
 void setupCountriesFeatureLocator() {
-  // 1. سجل ApiService (لو لم يكن مسجلاً سابقًا)
+
   if (!getIt.isRegistered<ApiService>()) {
     getIt.registerSingleton<ApiService>(ApiService(Dio()));
   }
 
-  // 2. سجل الريبو الخاص بCountries
+  
   getIt.registerSingleton<GetCountriesRepoImpl>(
     GetCountriesRepoImpl(getIt.get<ApiService>()),
   );
 }
 
 void setupParcelsFeatureLocator() {
-  // 1. تسجيل ParcelRepo (لو لم يكن مسجلاً)
+  
   if (!getIt.isRegistered<ParcelsRepo>()) {
     getIt.registerSingleton<ParcelsRepo>(ParcelsRepoImpl(getIt<ApiService>()));
   }
 
-  // 2. تسجيل ParcelCubit
+=
   if (!getIt.isRegistered<ParcelCubit>()) {
     getIt.registerFactory<ParcelCubit>(() => ParcelCubit(getIt<ParcelsRepo>()));
   }
@@ -68,19 +68,19 @@ void setupDeliveryStaffLocator() {
 }
 
 void setupUserFeatureLocator() {
-  // أولاً: تأكد أن ApiService موجود
+ 
   if (!getIt.isRegistered<ApiService>()) {
     getIt.registerSingleton<ApiService>(ApiService(Dio()));
   }
 
-  // ثانياً: سجل UserRepo إذا لم يكن مسجلاً
+  
   if (!getIt.isRegistered<UserRepo>()) {
     getIt.registerSingleton<UserRepo>(
       UserRepoImpl(getIt<ApiService>()),
     );
   }
 
-  // ثالثاً: سجل UserCubit
+
   if (!getIt.isRegistered<UserCubit>()) {
     getIt.registerFactory<UserCubit>(
       () => UserCubit(getIt<UserRepo>()),
@@ -89,14 +89,14 @@ void setupUserFeatureLocator() {
 }
 
 void setupComplaintsFeatureLocator() {
-  // ✅ سجل ComplaintsRepo
+
   if (!getIt.isRegistered<ComplaintsRepo>()) {
     getIt.registerSingleton<ComplaintsRepo>(
       ComplaintsRepoImpl(getIt<ApiService>()),
     );
   }
 
-  // ✅ سجل ComplaintsCubit
+
   if (!getIt.isRegistered<ComplaintsCubit>()) {
     getIt.registerFactory<ComplaintsCubit>(
       () => ComplaintsCubit(getIt<ComplaintsRepo>()),
@@ -119,19 +119,19 @@ void setupComplaintDetailsFeatureLocator() {
 }
 
 void setupAuthFeatureLocator() {
-  // تأكد من تسجيل ApiService
+  
   if (!getIt.isRegistered<ApiService>()) {
     getIt.registerSingleton<ApiService>(ApiService(Dio()));
   }
 
-  // سجل AuthRepo إذا كان لديك AuthRepo
+ 
   if (!getIt.isRegistered<AuthRepo>()) {
     getIt.registerSingleton<AuthRepo>(
       AuthRepoImpl(getIt<ApiService>()),
     );
   }
 
-  // سجل AuthCubit
+
   if (!getIt.isRegistered<AuthCubit>()) {
     getIt.registerFactory<AuthCubit>(
       () => AuthCubit(getIt<AuthRepo>()),
@@ -140,19 +140,19 @@ void setupAuthFeatureLocator() {
 }
 
 void setupDashboardFeatureLocator() {
-  // 1. تأكد من أن ApiService مسجل
+  
   if (!getIt.isRegistered<ApiService>()) {
     getIt.registerSingleton<ApiService>(ApiService(Dio()));
   }
 
-  // 2. سجل DashboardRepoImpl
+
   if (!getIt.isRegistered<GetDashboardRepoImpl>()) {
     getIt.registerSingleton<GetDashboardRepoImpl>(
       GetDashboardRepoImpl(getIt<ApiService>()),
     );
   }
 
-  // 3. سجل DashboardCubit
+ 
   if (!getIt.isRegistered<DashboardCubit>()) {
     getIt.registerFactory<DashboardCubit>(
       () => DashboardCubit(getIt<GetDashboardRepoImpl>()),
