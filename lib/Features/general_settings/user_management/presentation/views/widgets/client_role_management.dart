@@ -21,7 +21,7 @@ class _ClientRoleManagementState extends State<ClientRoleManagement> {
   @override
   void initState() {
     super.initState();
-    // استدعاء التابع getUsers عند بداية تحميل الواجهة
+    
     context.read<UserCubit>().getUsers();
   }
 
@@ -63,7 +63,7 @@ class _ClientRoleManagementState extends State<ClientRoleManagement> {
                           ),
                         ),
                         SizedBox(
-                          width: 300.w, // عرض مناسب للإيميل
+                          width: 300.w, 
                           child: Text(
                             "${user.email}",
                             style: Styles.textStyle20.copyWith(
@@ -73,7 +73,7 @@ class _ClientRoleManagementState extends State<ClientRoleManagement> {
                           ),
                         ),
                         SizedBox(
-                          width: 220.w, // عرض مناسب للدور + الأيقونة
+                          width: 220.w,
                           child: Row(
                             children: [
                               Text(
