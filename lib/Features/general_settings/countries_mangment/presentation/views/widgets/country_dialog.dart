@@ -54,7 +54,7 @@ class _CountryDialogState extends State<CountryDialog> {
             SnackBar(content: Text('تمت إضافة البلد بنجاح')),
           );
           context.read<CountriesCubit>().getCountries();
-          Navigator.of(context).pop(); // يغلق الـ Dialog تلقائياً بعد النجاح
+          Navigator.of(context).pop(); 
         } else if (state is CountryCreateFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('فشل الإضافة: ${state.errorMessage}')),
@@ -120,7 +120,7 @@ class _CountryDialogState extends State<CountryDialog> {
                               return;
                             }
 
-                            // استدعاء الـ Cubit لبدء عملية الإنشاء
+                            
                             context.read<CountryCreateCubit>().createCountry(
                                   name: name,
                                   code: code,
@@ -149,9 +149,9 @@ class _CountryDialogState extends State<CountryDialog> {
                 Expanded(
                   // height: 15.h +
 
-                  // مجموع تقريبي لارتفاع الحقول حتى "أدخل رمز البلد"
+                 
                   child: Align(
-                    alignment: Alignment.bottomRight, // الصورة تبدأ من الأسفل
+                    alignment: Alignment.bottomRight, 
                     child: SvgPicture.asset(
                       AssetsData.image1,
                       fit: BoxFit.contain,
