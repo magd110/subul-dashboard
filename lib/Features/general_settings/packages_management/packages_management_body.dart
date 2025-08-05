@@ -15,7 +15,7 @@ class PackagesManagementBody extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         border: Border.all(color: AppColors.deepPurple, width: 3.0),
-        borderRadius: BorderRadius.circular(12), // تدوير الزوايا
+        borderRadius: BorderRadius.circular(12),
       ),
       // color: AppColors.white,
       width: AppSizes.widthRatio(context, 856),
@@ -24,17 +24,17 @@ class PackagesManagementBody extends StatelessWidget {
         children: [
           SizedBox(
               height: AppSizes.heightRatio(
-                  context, 40)), // التحكم في المسافة العلوية
+                  context, 40)), 
           Text(
             "إدارة الطرود",
-            textAlign: TextAlign.center, // يضمن أن النص في المنتصف
+            textAlign: TextAlign.center, 
             style: Styles.textStyle38.copyWith(
               fontSize: 38.sp,
               color: AppColors.deepPurple,
             ),
           ),
           SizedBox(height: AppSizes.heightRatio(context, 30)),
-          // التحكم في المسافة السفلية
+          
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
