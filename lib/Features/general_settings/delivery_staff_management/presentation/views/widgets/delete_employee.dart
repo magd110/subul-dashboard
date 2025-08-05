@@ -30,13 +30,13 @@ class DeleteEmployee extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('تم حذف الموظف بنجاح')),
               );
-              Navigator.pop(context); // يغلق الـ Dialog بعد نجاح الحذف
+              Navigator.pop(context); 
             } else if (state is DeliveryStaffFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('خطأ: ${state.errorMessage}')),
               );
               Navigator.pop(
-                  context); // ممكن تقرر هل تغلق الـ Dialog أم لا في حالة الخطأ
+                  context); 
             }
           },
           child: Container(
