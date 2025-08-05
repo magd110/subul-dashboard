@@ -26,9 +26,9 @@ class DeliveryStaffCubit extends Cubit<DeliveryStaffState> {
       emit(DeliveryStaffFailure(failure.eerMessage));
     },
     (_) async {
-      // بعد الحذف الناجح، حدّث القائمة فقط
+      
       await getDeliveryStaff();
-      // لو حابب، يمكنك إضافة منطق هنا لعرض SnackBar
+     
     },
   );
 }
@@ -51,7 +51,7 @@ class DeliveryStaffCubit extends Cubit<DeliveryStaffState> {
     result.fold(
       (failure) => emit(DeliveryStaffFailure(failure.eerMessage)),
       (response) {
-        // لتحديث القائمة بعد الإضافة
+      
         getDeliveryStaff();
       },
     );
@@ -76,7 +76,7 @@ class DeliveryStaffCubit extends Cubit<DeliveryStaffState> {
   result.fold(
     (failure) => emit(DeliveryStaffFailure(failure.eerMessage)),
     (response) async {
-      // بعد التحديث الناجح، حدّث القائمة
+     
       await getDeliveryStaff();
      
     },
