@@ -10,10 +10,10 @@ class SidebarIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(
-      // يجعل العنصر يتمدد داخل SizedBox
+      
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        //mainAxisAlignment: MainAxisAlignment.center, // توسيط العناصر
+        //mainAxisAlignment: MainAxisAlignment.center, 
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -24,16 +24,16 @@ class SidebarIcon extends StatelessWidget {
                   fit: BoxFit.contain,
                   color: isSelected ? Colors.blue : null,
                   //  color: Colors.black,
-                  // width: double.infinity, // يجعلها تأخذ الحجم المناسب
+                  // width: double.infinity, 
                   // height: double.infinity,
                 ),
               ),
-              SizedBox(width: 3), // مسافة بين الصور
+              SizedBox(width: 3), 
               Flexible(
                 child: SvgPicture.asset(
                   AssetsData.vector,
                   fit: BoxFit.contain,
-                  color: isSelected ? Colors.blue : null, // تغيير اللون
+                  color: isSelected ? Colors.blue : null, 
 
                   // width: double.infinity,
                   // height: double.infinity,
@@ -45,34 +45,34 @@ class SidebarIcon extends StatelessWidget {
           Stack(
             clipBehavior: Clip.none,
             children: [
-              // العنصر الرئيسي داخل Stack
+           
               SvgPicture.asset(
                 AssetsData.vector3,
                 fit: BoxFit.contain,
                 // تكبير الصورة بما يناسب المساحة
-                color: isSelected ? Colors.blue : null, // تغيير اللون
+                color: isSelected ? Colors.blue : null,
                 width: 45,
                 height: 30,
               ),
 
-              // العنصر الجديد الذي يمكن التحكم في موقعه
+              
               Positioned(
-                top: 10, // التحكم في موقعه من الأعلى
-                left: 22, // التحكم في موقعه من اليسار
+                top: 10,
+                left: 22, 
                 child: SvgPicture.asset(
                   AssetsData.Ellipse,
-                  fit: BoxFit.contain, // تكبير الصورة بما يناسب المساحة
+                  fit: BoxFit.contain, 
                   width: 29,
                   height: 29,
-                  color: isSelected ? Colors.blue : null, // تغيير اللون
+                  color: isSelected ? Colors.blue : null,
                 ),
               ),
               Positioned(
-                top: 13, // التحكم في موقعه من الأعلى
-                left: 26, // التحكم في موقعه من اليسار
+                top: 13,
+                left: 26, 
                 child: SvgPicture.asset(
                   image,
-                  fit: BoxFit.contain, // تكبير الصورة بما يناسب المساحة
+                  fit: BoxFit.contain, 
                   width: 20,
                   height: 20,
                 ),
