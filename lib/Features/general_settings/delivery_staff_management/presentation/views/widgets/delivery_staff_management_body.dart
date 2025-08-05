@@ -46,7 +46,7 @@ class DeliveryStaffManagementBody extends StatelessWidget {
                     height: AppSizes.heightRatio(context, 620),
                     child: Column(
                       children: [
-                        // رؤوس الأعمدة
+                      
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
@@ -77,7 +77,7 @@ class DeliveryStaffManagementBody extends StatelessWidget {
                           ),
                         ),
 
-                        // قائمة الموظفين
+                      
                         Expanded(
                           child: ListView.builder(
                             scrollDirection: Axis.vertical,
@@ -212,7 +212,7 @@ class DeliveryStaffManagementBody extends StatelessWidget {
             );
           }
 
-          // الحالة الابتدائية
+         
           return const Center(child: Text("لا توجد بيانات بعد"));
         },
       ),
