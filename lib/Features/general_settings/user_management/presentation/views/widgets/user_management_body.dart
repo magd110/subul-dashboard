@@ -73,7 +73,7 @@ class _UserManagementViewState extends State<UserManagementBody> {
                     AppSizes.widthRatio(context, 190),
                     AppSizes.heightRatio(context, 10)),
                 child: Row(children: [
-                  // 🔹 زر عرض العملاء
+                
                   AddButton1(
                     width: 300,
                     height: 60,
@@ -95,7 +95,7 @@ class _UserManagementViewState extends State<UserManagementBody> {
                   SizedBox(
                     width: AppSizes.widthRatio(context, 330),
                   ),
-                  // 🔹 زر إنشاء حساب
+                 
 
                   AddButton1(
                     width: 300,
@@ -118,7 +118,7 @@ class _UserManagementViewState extends State<UserManagementBody> {
               ),
 
               const SizedBox(height: 5),
-              // 🔹 خيارات إنشاء الحساب (المدير / مستلم المخزن)
+          
               if (showAccountOptions) ...[
                 Padding(
                   padding: EdgeInsets.only(
@@ -189,7 +189,7 @@ class _UserManagementViewState extends State<UserManagementBody> {
   }
 }
 
-// 🧩 واجهة إنشاء الحساب
+
 Widget _buildCreateAccountView(String type) {
   return Center(
     child: Text(
