@@ -53,10 +53,10 @@ class CountriesManagementBody extends StatelessWidget {
                           childAspectRatio: 5,
                         ),
                         itemCount:
-                            countries.length, // ✅ استخدم الطول الفعلي للبيانات
+                            countries.length,
                         itemBuilder: (context, index) {
                           final country =
-                              countries[index]; // ✅ استخدم العنصر الصحيح
+                              countries[index]; 
                           return Center(
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -99,7 +99,7 @@ class CountriesManagementBody extends StatelessWidget {
                   icon: FontAwesomeIcons.plus,
                   onPressed: () {
                     final countriesCubit =
-                        context.read<CountriesCubit>(); // استخرج Cubit الحالي
+                        context.read<CountriesCubit>(); 
 
                     showDialog(
                       context: context,
@@ -111,7 +111,7 @@ class CountriesManagementBody extends StatelessWidget {
                                   getIt.get<GetCountriesRepoImpl>()),
                             ),
                             BlocProvider.value(
-                              // تمرير نفس الـ CountriesCubit
+                             
                               value: countriesCubit,
                             ),
                           ],
