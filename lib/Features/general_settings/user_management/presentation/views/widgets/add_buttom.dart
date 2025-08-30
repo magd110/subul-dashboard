@@ -26,8 +26,8 @@ class AddButton1 extends StatelessWidget {
     this.width = 182,
     this.height = 50,
     required this.backgroundColor,
-    this.textColor = AppColors.black, // لون النص الافتراضي
-    this.iconColor = AppColors.white, // لون الأيقونة الافتراضي
+    this.textColor = AppColors.black, 
+    this.iconColor = AppColors.white, 
   }) : super(key: key);
 
   @override
@@ -39,7 +39,7 @@ class AddButton1 extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          backgroundColor: backgroundColor, // لون الزر
+          backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
@@ -55,7 +55,7 @@ class AddButton1 extends StatelessWidget {
                 fontSize: fontSize?.sp,
               ),
             ),
-            SizedBox(width: 8), // مسافة بين النص والأيقونة
+            SizedBox(width: 8), 
             if (icon != null) ...[
               SizedBox(width: 8),
               Icon(

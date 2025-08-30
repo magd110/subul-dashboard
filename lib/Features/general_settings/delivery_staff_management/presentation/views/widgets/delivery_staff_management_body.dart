@@ -34,59 +34,52 @@ class DeliveryStaffManagementBody extends StatelessWidget {
           if (state is DeliveryStaffSuccess) {
             final employees = state.staff;
 
-            return LayoutBuilder(
-              builder: (context, constraints) {
-                final isWide = constraints.maxWidth > 800; // إذا الشاشة كبيرة
-
-                return Column(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        width: double.infinity,
-                        margin: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: AppColors.deepPurple.withOpacity(0.3),
-                            width: 1.5,
+            return Column(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      border: Border.all(color: AppColors.deepPurple, width: 3.0),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    width: AppSizes.widthRatio(context, 880),
+                    height: AppSizes.heightRatio(context, 620),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text("اسم الموظف",
+                                    style: Styles.textStyle24.copyWith(fontSize: 24.sp, color: AppColors.black)),
+                              ),
+                              Expanded(
+                                child: Text("السكن",
+                                    style: Styles.textStyle24.copyWith(fontSize: 24.sp, color: AppColors.black)),
+                              ),
+                              Expanded(
+                                child: Text("رقم الهاتف",
+                                    style: Styles.textStyle24.copyWith(fontSize: 24.sp, color: AppColors.black)),
+                              ),
+                              Expanded(
+                                child: Text("المهنة",
+                                    style: Styles.textStyle24.copyWith(fontSize: 24.sp, color: AppColors.black)),
+                              ),
+                            ],
                           ),
                         ),
-                        child: _buildTableView(
-                            context, employees), // 👈 دائمًا جدول
-                      ),
-                    ),
-                    SizedBox(height: AppSizes.heightRatio(context, 30)),
-
-                    // 🔹 زر إضافة مع Animation Hover
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 200),
-                          transformAlignment: Alignment.center,
-                          child: AddButton(
-                            text: 'إضافة موظف',
-                            icon: FontAwesomeIcons.plus,
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (_) => BlocProvider.value(
-                                  value: context.read<DeliveryStaffCubit>(),
-                                  child: const EmployeeDialog(
-                                    text: "إضافة موظف جديد",
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
+                        Expanded(
+                          child: _buildTableView(context, employees),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                );
-              },
+                  ),
+                ),
+                SizedBox(height: AppSizes.heightRatio(context, 30)),
+              ],
             );
           }
 
@@ -111,26 +104,22 @@ class DeliveryStaffManagementBody extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: Text("اسم الموظف",
-                    style: Styles.textStyle20.copyWith(
-                        color: Colors.white, fontWeight: FontWeight.bold)),
+                    style: Styles.textStyle20.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 flex: 2,
                 child: Text("السكن",
-                    style: Styles.textStyle20.copyWith(
-                        color: Colors.white, fontWeight: FontWeight.bold)),
+                    style: Styles.textStyle20.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 flex: 2,
                 child: Text("رقم الهاتف",
-                    style: Styles.textStyle20.copyWith(
-                        color: Colors.white, fontWeight: FontWeight.bold)),
+                    style: Styles.textStyle20.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 flex: 2,
                 child: Text("المهنة",
-                    style: Styles.textStyle20.copyWith(
-                        color: Colors.white, fontWeight: FontWeight.bold)),
+                    style: Styles.textStyle20.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
               ),
               const SizedBox(width: 60),
             ],
@@ -141,36 +130,31 @@ class DeliveryStaffManagementBody extends StatelessWidget {
         Expanded(
           child: SizedBox(
             width: MediaQuery.of(context).size.width < 600
-                ? 800 // حد أدنى لعرض الجدول في الموبايل
+                ? 800
                 : MediaQuery.of(context).size.width,
             child: ListView.builder(
               itemCount: employees.length,
               itemBuilder: (context, index) {
                 final employee = employees[index];
                 return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Card(
                     elevation: 2,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       child: Row(
                         children: [
                           Expanded(flex: 2, child: Text(employee.name)),
-                          Expanded(
-                              flex: 2, child: Text(employee.address ?? '')),
+                          Expanded(flex: 2, child: Text(employee.address ?? '')),
                           Expanded(flex: 2, child: Text(employee.phone ?? '')),
-                          Expanded(
-                              flex: 2, child: Text(employee.jobTitle ?? '')),
+                          Expanded(flex: 2, child: Text(employee.jobTitle ?? '')),
                           Row(
                             children: [
                               IconButton(
-                                icon: SvgPicture.asset(AssetsData.iconedit,
-                                    width: 22, height: 22),
+                                icon: SvgPicture.asset(AssetsData.iconedit, width: 22, height: 22),
                                 onPressed: () {
                                   showDialog(
                                     context: context,
@@ -189,8 +173,7 @@ class DeliveryStaffManagementBody extends StatelessWidget {
                                 },
                               ),
                               IconButton(
-                                icon: SvgPicture.asset(AssetsData.icondelete,
-                                    width: 22, height: 22),
+                                icon: SvgPicture.asset(AssetsData.icondelete, width: 22, height: 22),
                                 onPressed: () {
                                   showDialog(
                                     context: context,
@@ -213,84 +196,6 @@ class DeliveryStaffManagementBody extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  /// 📱 عرض كـ Cards للموبايل
-  Widget _buildCardView(BuildContext context, List employees) {
-    return ListView.builder(
-      itemCount: employees.length,
-      itemBuilder: (context, index) {
-        final employee = employees[index];
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Card(
-            elevation: 3,
-            color: AppColors.white,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(color: AppColors.deepPurple, width: 1.5),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("👤 الاسم: ${employee.name}",
-                      style: Styles.textStyle17.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.deepPurple)),
-                  Text("🏠 السكن: ${employee.address ?? '-'}",
-                      style: Styles.textStyle17),
-                  Text("📞 الهاتف: ${employee.phone ?? '-'}",
-                      style: Styles.textStyle17),
-                  Text("💼 المهنة: ${employee.jobTitle ?? '-'}",
-                      style: Styles.textStyle17),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      IconButton(
-                        icon: SvgPicture.asset(AssetsData.iconedit,
-                            width: 22, height: 22),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (_) => BlocProvider.value(
-                              value: context.read<DeliveryStaffCubit>(),
-                              child: EditEmployeeDialog(
-                                text: "تعديل بيانات موظف:",
-                                id: employee.id!,
-                                name: employee.name,
-                                address: employee.address ?? "",
-                                phone: employee.phone ?? "",
-                                jobTitle: employee.jobTitle,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                      IconButton(
-                        icon: SvgPicture.asset(AssetsData.icondelete,
-                            width: 22, height: 22),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (_) => BlocProvider.value(
-                              value: context.read<DeliveryStaffCubit>(),
-                              child: DeleteEmployee(id: employee.id!),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 }

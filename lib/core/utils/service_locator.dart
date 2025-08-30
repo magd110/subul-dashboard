@@ -36,24 +36,20 @@ import 'package:subul_dashboard2/core/utils/api_service.dart';
 final getIt = GetIt.instance;
 
 void setupCountriesFeatureLocator() {
- 
   if (!getIt.isRegistered<ApiService>()) {
     getIt.registerSingleton<ApiService>(ApiService(Dio()));
   }
 
-  
   getIt.registerSingleton<GetCountriesRepoImpl>(
     GetCountriesRepoImpl(getIt.get<ApiService>()),
   );
 }
 
 void setupParcelsFeatureLocator() {
-  
   if (!getIt.isRegistered<ParcelsRepo>()) {
     getIt.registerSingleton<ParcelsRepo>(ParcelsRepoImpl(getIt<ApiService>()));
   }
 
-  
   if (!getIt.isRegistered<ParcelCubit>()) {
     getIt.registerFactory<ParcelCubit>(() => ParcelCubit(getIt<ParcelsRepo>()));
   }
@@ -78,12 +74,10 @@ void setupDeliveryStaffLocator() {
 }
 
 void setupUserFeatureLocator() {
-  
   if (!getIt.isRegistered<ApiService>()) {
     getIt.registerSingleton<ApiService>(ApiService(Dio()));
   }
 
-  
   if (!getIt.isRegistered<UserRepo>()) {
     getIt.registerSingleton<UserRepo>(
       UserRepoImpl(getIt<ApiService>()),
@@ -98,14 +92,12 @@ void setupUserFeatureLocator() {
 }
 
 void setupComplaintsFeatureLocator() {
-
   if (!getIt.isRegistered<ComplaintsRepo>()) {
     getIt.registerSingleton<ComplaintsRepo>(
       ComplaintsRepoImpl(getIt<ApiService>()),
     );
   }
 
-  
   if (!getIt.isRegistered<ComplaintsCubit>()) {
     getIt.registerFactory<ComplaintsCubit>(
       () => ComplaintsCubit(getIt<ComplaintsRepo>()),
@@ -128,11 +120,9 @@ void setupComplaintDetailsFeatureLocator() {
 }
 
 void setupAuthFeatureLocator() {
- 
   if (!getIt.isRegistered<ApiService>()) {
     getIt.registerSingleton<ApiService>(ApiService(Dio()));
   }
-
 
   if (!getIt.isRegistered<AuthRepo>()) {
     getIt.registerSingleton<AuthRepo>(
@@ -140,7 +130,6 @@ void setupAuthFeatureLocator() {
     );
   }
 
- 
   if (!getIt.isRegistered<AuthCubit>()) {
     getIt.registerFactory<AuthCubit>(
       () => AuthCubit(getIt<AuthRepo>()),
@@ -149,11 +138,9 @@ void setupAuthFeatureLocator() {
 }
 
 void setupDashboardFeatureLocator() {
-  
   if (!getIt.isRegistered<ApiService>()) {
     getIt.registerSingleton<ApiService>(ApiService(Dio()));
   }
-
 
   if (!getIt.isRegistered<GetDashboardRepoImpl>()) {
     getIt.registerSingleton<GetDashboardRepoImpl>(
@@ -161,7 +148,6 @@ void setupDashboardFeatureLocator() {
     );
   }
 
- 
   if (!getIt.isRegistered<DashboardCubit>()) {
     getIt.registerFactory<DashboardCubit>(
       () => DashboardCubit(getIt<GetDashboardRepoImpl>()),
@@ -170,18 +156,15 @@ void setupDashboardFeatureLocator() {
 }
 
 void setupFixedCostFeatureLocator() {
- 
   if (!getIt.isRegistered<ApiService>()) {
     getIt.registerSingleton<ApiService>(ApiService(Dio()));
   }
 
- 
   if (!getIt.isRegistered<FixedCostRepo>()) {
     getIt.registerSingleton<FixedCostRepo>(
       FixedCostRepoImpl(getIt<ApiService>()),
     );
   }
-
 
   if (!getIt.isRegistered<FixedCostCubit>()) {
     getIt.registerFactory<FixedCostCubit>(
@@ -208,7 +191,6 @@ void setupShipmentFeatureLocator() {
   }
 }
 
-
 void setupSuppliersFeatureLocator() {
   if (!getIt.isRegistered<ApiService>()) {
     getIt.registerSingleton<ApiService>(ApiService(Dio()));
@@ -229,6 +211,3 @@ void setupSuppliersFeatureLocator() {
     );
   }
 }
-
-
-

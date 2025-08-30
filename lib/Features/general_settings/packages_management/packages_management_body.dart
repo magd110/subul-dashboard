@@ -15,26 +15,22 @@ class PackagesManagementBody extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         border: Border.all(color: AppColors.deepPurple, width: 3.0),
-        borderRadius: BorderRadius.circular(12), 
+        borderRadius: BorderRadius.circular(12),
       ),
-      // color: AppColors.white,
       width: AppSizes.widthRatio(context, 856),
       height: AppSizes.heightRatio(context, 620),
       child: Column(
         children: [
-          SizedBox(
-              height: AppSizes.heightRatio(
-                  context, 40)), 
+          SizedBox(height: AppSizes.heightRatio(context, 40)),
           Text(
             "إدارة الطرود",
-            textAlign: TextAlign.center, 
+            textAlign: TextAlign.center,
             style: Styles.textStyle38.copyWith(
               fontSize: 38.sp,
               color: AppColors.deepPurple,
             ),
           ),
           SizedBox(height: AppSizes.heightRatio(context, 30)),
-         
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

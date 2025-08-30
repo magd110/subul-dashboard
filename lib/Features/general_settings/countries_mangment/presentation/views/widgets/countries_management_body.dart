@@ -28,33 +28,30 @@ class CountriesManagementBody extends StatelessWidget {
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                   child: RefreshIndicator(
                     onRefresh: () async {
                       context.read<CountriesCubit>().getCountries();
                     },
-                    child: GridView.builder(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      padding: const EdgeInsets.all(10),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3, // عرض 3 أعمدة فقط
-                        crossAxisSpacing: 20,
-                        mainAxisSpacing: 20,
-                        childAspectRatio: 3, // زيادة ارتفاع كل container
-                      ),
-                      itemCount: countries.length,
-                      itemBuilder: (context, index) {
-                        final country = countries[index];
-                        return InkWell(
-                          onTap: () {},
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 10),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                      child: GridView.builder(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          childAspectRatio: 5,
+                        ),
+                        itemCount: countries.length,
+                        itemBuilder: (context, index) {
+                          final country = countries[index];
+                          return Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              border: Border.all(
-                                  color: AppColors.deepPurple, width: 2.0),
+                              border: Border.all(color: AppColors.deepPurple, width: 2.0),
                               borderRadius: BorderRadius.circular(16),
                               boxShadow: [
                                 BoxShadow(
@@ -83,16 +80,16 @@ class CountriesManagementBody extends StatelessWidget {
                                       fontWeight: FontWeight.bold,
                                       color: AppColors.deepPurple,
                                     ),
-                                    maxLines: 2, // يسمح بسطرين للنص الطويل
+                                    maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     softWrap: true,
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),

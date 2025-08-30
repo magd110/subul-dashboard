@@ -47,7 +47,6 @@ class _CountryDialogState extends State<CountryDialog> {
 
   @override
   Widget build(BuildContext context) {
-    // لضمان responsiveness
     final dialogWidth = AppSizes.widthRatio(context, 550);
     final dialogHeight = AppSizes.heightRatio(context, 500);
 
@@ -89,10 +88,7 @@ class _CountryDialogState extends State<CountryDialog> {
             ),
             child: Row(
               children: [
-                // مساحة فارغة لتوازن التصميم
                 const Expanded(flex: 1, child: SizedBox()),
-
-                // العمود الرئيسي للنموذج
                 Expanded(
                   flex: 3,
                   child: SingleChildScrollView(
@@ -102,21 +98,19 @@ class _CountryDialogState extends State<CountryDialog> {
                         Text(
                           widget.title,
                           style: Styles.textStyle36.copyWith(
-                            fontSize: 36.sp,
-                            color: AppColors.deepPurple,
-                          ),
+                              fontSize: 36.sp, color: AppColors.deepPurple),
                         ),
-                        SizedBox(height: 25.h),
+                        const SizedBox(height: 20),
                         CustomTextField(
                           controller: nameController,
                           hintText: 'أدخل الاسم',
                         ),
-                        SizedBox(height: 20.h),
+                        const SizedBox(height: 15),
                         CustomTextField(
                           controller: codeController,
                           hintText: 'أدخل رمز البلد...',
                         ),
-                        SizedBox(height: 35.h),
+                        const SizedBox(height: 30),
                         SizedBox(
                           width: 182.w,
                           height: 50.h,
@@ -124,7 +118,6 @@ class _CountryDialogState extends State<CountryDialog> {
                             onPressed: () {
                               final name = nameController.text.trim();
                               final code = codeController.text.trim();
-
                               if (name.isEmpty || code.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
@@ -132,15 +125,14 @@ class _CountryDialogState extends State<CountryDialog> {
                                 );
                                 return;
                               }
-
                               context.read<CountryCreateCubit>().createCountry(
                                     name: name,
                                     code: code,
                                   );
                             },
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  AppColors.deepPurple),
+                              backgroundColor:
+                                  MaterialStateProperty.all(AppColors.deepPurple),
                               shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
@@ -158,15 +150,13 @@ class _CountryDialogState extends State<CountryDialog> {
                     ),
                   ),
                 ),
-
                 Expanded(
-                  flex: 1,
                   child: Align(
                     alignment: Alignment.bottomRight,
                     child: SvgPicture.asset(
                       AssetsData.image1,
-                      width: 300.w, // تكبير الصورة
-                      height: 300.h, // تكبير الصورة
+                      width: 300.w,
+                      height: 300.h,
                       fit: BoxFit.contain,
                     ),
                   ),

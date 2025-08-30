@@ -10,10 +10,9 @@ class SidebarIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(
-  
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        //mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -23,8 +22,7 @@ class SidebarIcon extends StatelessWidget {
                   AssetsData.vector2,
                   fit: BoxFit.contain,
                   color: isSelected ? Colors.blue : null,
-                  //  color: Colors.black,
-                  // width: double.infinity
+                  // width: double.infinity,
                   // height: double.infinity,
                 ),
               ),
@@ -34,42 +32,36 @@ class SidebarIcon extends StatelessWidget {
                   AssetsData.vector,
                   fit: BoxFit.contain,
                   color: isSelected ? Colors.blue : null,
-
                   // width: double.infinity,
                   // height: double.infinity,
                 ),
               ),
             ],
           ),
-
           Stack(
             clipBehavior: Clip.none,
             children: [
-              
               SvgPicture.asset(
                 AssetsData.vector3,
                 fit: BoxFit.contain,
-               
                 color: isSelected ? Colors.blue : null, // تغيير اللون
                 width: 45,
                 height: 30,
               ),
-
-             
               Positioned(
-                top: 10, 
-                left: 22, 
+                top: 10,
+                left: 22,
                 child: SvgPicture.asset(
                   AssetsData.Ellipse,
-                  fit: BoxFit.contain, 
+                  fit: BoxFit.contain,
                   width: 29,
                   height: 29,
-                  color: isSelected ? Colors.blue : null, // تغيير اللون
+                  color: isSelected ? Colors.blue : null,
                 ),
               ),
               Positioned(
-                top: 13, 
-                left: 26, 
+                top: 13,
+                left: 26,
                 child: SvgPicture.asset(
                   image,
                   fit: BoxFit.contain,

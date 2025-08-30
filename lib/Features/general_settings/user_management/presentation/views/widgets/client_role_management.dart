@@ -21,7 +21,6 @@ class _ClientRoleManagementState extends State<ClientRoleManagement> {
   @override
   void initState() {
     super.initState();
-    // استدعاء التابع getUsers عند بداية تحميل الواجهة
     context.read<UserCubit>().getUsers();
   }
 
@@ -44,10 +43,10 @@ class _ClientRoleManagementState extends State<ClientRoleManagement> {
                 margin: EdgeInsets.only(bottom: 16.h),
                 elevation: 4,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.r)),
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
                 child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                   child: Row(
                     children: [
                       /// الاسم
@@ -64,32 +63,30 @@ class _ClientRoleManagementState extends State<ClientRoleManagement> {
                       ),
 
                       /// الايميل
-                      Expanded(
-                        flex: 3,
+                      SizedBox(
+                        width: 300.w,
                         child: Text(
-                          user.email,
+                          "${user.email}",
                           style: Styles.textStyle20.copyWith(
-                            color: Colors.grey[800],
-                            fontSize: 16.sp,
+                            color: AppColors.black,
+                            fontSize: 20.sp,
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
 
                       /// الدور + أيقونة تعديل
-                      Expanded(
-                        flex: 2,
+                      SizedBox(
+                        width: 220.w,
                         child: Row(
                           children: [
-                            Expanded(
-                              child: Text(
-                                user.role,
-                                style: Styles.textStyle20.copyWith(
-                                  color: AppColors.deepPurple,
-                                  fontSize: 16.sp,
-                                ),
-                                overflow: TextOverflow.ellipsis,
+                            Text(
+                              user.role,
+                              style: Styles.textStyle20.copyWith(
+                                color: AppColors.deepPurple,
+                                fontSize: 16.sp,
                               ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                             GestureDetector(
                               onTap: () {
