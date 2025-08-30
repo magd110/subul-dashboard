@@ -40,42 +40,14 @@ class DeliveryStaffManagementBody extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       color: AppColors.white,
-                      border: Border.all(color: AppColors.deepPurple, width: 3.0),
+                      border:
+                          Border.all(color: AppColors.deepPurple, width: 3.0),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     width: AppSizes.widthRatio(context, 880),
                     height: AppSizes.heightRatio(context, 620),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Text("اسم الموظف",
-                                    style: Styles.textStyle24.copyWith(fontSize: 24.sp, color: AppColors.black)),
-                              ),
-                              Expanded(
-                                child: Text("السكن",
-                                    style: Styles.textStyle24.copyWith(fontSize: 24.sp, color: AppColors.black)),
-                              ),
-                              Expanded(
-                                child: Text("رقم الهاتف",
-                                    style: Styles.textStyle24.copyWith(fontSize: 24.sp, color: AppColors.black)),
-                              ),
-                              Expanded(
-                                child: Text("المهنة",
-                                    style: Styles.textStyle24.copyWith(fontSize: 24.sp, color: AppColors.black)),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: _buildTableView(context, employees),
-                        ),
-                      ],
-                    ),
+                    child: _buildTableView(
+                        context, employees), // ✅ العناوين + البيانات هنا
                   ),
                 ),
                 SizedBox(height: AppSizes.heightRatio(context, 30)),
@@ -92,7 +64,7 @@ class DeliveryStaffManagementBody extends StatelessWidget {
   Widget _buildTableView(BuildContext context, List employees) {
     return Column(
       children: [
-        // 🔹 العناوين
+        // 🔹 العناوين (الهيدر)
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           decoration: BoxDecoration(
@@ -104,22 +76,26 @@ class DeliveryStaffManagementBody extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: Text("اسم الموظف",
-                    style: Styles.textStyle20.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+                    style: Styles.textStyle20.copyWith(
+                        color: Colors.white, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 flex: 2,
                 child: Text("السكن",
-                    style: Styles.textStyle20.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+                    style: Styles.textStyle20.copyWith(
+                        color: Colors.white, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 flex: 2,
                 child: Text("رقم الهاتف",
-                    style: Styles.textStyle20.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+                    style: Styles.textStyle20.copyWith(
+                        color: Colors.white, fontWeight: FontWeight.bold)),
               ),
               Expanded(
                 flex: 2,
                 child: Text("المهنة",
-                    style: Styles.textStyle20.copyWith(color: Colors.white, fontWeight: FontWeight.bold)),
+                    style: Styles.textStyle20.copyWith(
+                        color: Colors.white, fontWeight: FontWeight.bold)),
               ),
               const SizedBox(width: 60),
             ],
@@ -137,24 +113,29 @@ class DeliveryStaffManagementBody extends StatelessWidget {
               itemBuilder: (context, index) {
                 final employee = employees[index];
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Card(
                     elevation: 2,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 12),
                       child: Row(
                         children: [
                           Expanded(flex: 2, child: Text(employee.name)),
-                          Expanded(flex: 2, child: Text(employee.address ?? '')),
+                          Expanded(
+                              flex: 2, child: Text(employee.address ?? '')),
                           Expanded(flex: 2, child: Text(employee.phone ?? '')),
-                          Expanded(flex: 2, child: Text(employee.jobTitle ?? '')),
+                          Expanded(
+                              flex: 2, child: Text(employee.jobTitle ?? '')),
                           Row(
                             children: [
                               IconButton(
-                                icon: SvgPicture.asset(AssetsData.iconedit, width: 22, height: 22),
+                                icon: SvgPicture.asset(AssetsData.iconedit,
+                                    width: 22, height: 22),
                                 onPressed: () {
                                   showDialog(
                                     context: context,
@@ -173,7 +154,8 @@ class DeliveryStaffManagementBody extends StatelessWidget {
                                 },
                               ),
                               IconButton(
-                                icon: SvgPicture.asset(AssetsData.icondelete, width: 22, height: 22),
+                                icon: SvgPicture.asset(AssetsData.icondelete,
+                                    width: 22, height: 22),
                                 onPressed: () {
                                   showDialog(
                                     context: context,
