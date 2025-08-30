@@ -36,83 +36,87 @@ class _ClientRoleManagementState extends State<ClientRoleManagement> {
         } else if (state is UserSuccess) {
           final users = state.users;
           return ListView.builder(
+            padding: EdgeInsets.all(16.w),
             itemCount: users.length,
             itemBuilder: (context, index) {
               final user = users[index];
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 36.0),
+              return Card(
+                margin: EdgeInsets.only(bottom: 16.h),
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.r)),
                 child: Container(
-                  height: AppSizes.heightRatio(context, 70),
-                  decoration: BoxDecoration(
-                    color: AppColors.softGray,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: 280.w, // عرض مناسب للاسم
-                          child: Text(
-                            "${user.firstName} ${user.lastName}",
-                            style: Styles.textStyle20.copyWith(
-                              color: AppColors.black,
-                              fontSize: 20.sp,
-                            ),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                  child: Row(
+                    children: [
+                      /// الاسم
+                      Expanded(
+                        flex: 2,
+                        child: Text(
+                          "${user.firstName} ${user.lastName}",
+                          style: Styles.textStyle20.copyWith(
+                            color: AppColors.black,
+                            fontSize: 18.sp,
                           ),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        SizedBox(
-                          width: 300.w, // عرض مناسب للإيميل
-                          child: Text(
-                            "${user.email}",
-                            style: Styles.textStyle20.copyWith(
-                              color: AppColors.black,
-                              fontSize: 20.sp,
-                            ),
+                      ),
+
+                      /// الايميل
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          user.email,
+                          style: Styles.textStyle20.copyWith(
+                            color: Colors.grey[800],
+                            fontSize: 16.sp,
                           ),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        SizedBox(
-                          width: 220.w, // عرض مناسب للدور + الأيقونة
-                          child: Row(
-                            children: [
-                              Text(
+                      ),
+
+                      /// الدور + أيقونة تعديل
+                      Expanded(
+                        flex: 2,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
                                 user.role,
                                 style: Styles.textStyle20.copyWith(
-                                  color: AppColors.black,
-                                  fontSize: 20.sp,
+                                  color: AppColors.deepPurple,
+                                  fontSize: 16.sp,
                                 ),
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              const SizedBox(width: 10),
-                              GestureDetector(
-                                onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (_) => RoleSelectionDialog(
-                                      text: 'اختر الدور الجديد',
-                                      selectedRole: user.role,
-                                      onSave: (newRole) {
-                                        context
-                                            .read<UserCubit>()
-                                            .updateUserRole(
-                                              userId: user.id,
-                                              newRole: newRole,
-                                            );
-                                      },
-                                    ),
-                                  );
-                                },
-                                child: SvgPicture.asset(
-                                  AssetsData.iconedit,
-                                  width: 24,
-                                  height: 24,
-                                ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (_) => RoleSelectionDialog(
+                                    text: 'اختر الدور الجديد',
+                                    selectedRole: user.role,
+                                    onSave: (newRole) {
+                                      context.read<UserCubit>().updateUserRole(
+                                            userId: user.id,
+                                            newRole: newRole,
+                                          );
+                                    },
+                                  ),
+                                );
+                              },
+                              child: SvgPicture.asset(
+                                AssetsData.iconedit,
+                                width: 22.w,
+                                height: 22.h,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               );

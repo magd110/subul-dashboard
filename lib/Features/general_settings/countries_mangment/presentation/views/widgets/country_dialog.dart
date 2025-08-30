@@ -47,14 +47,18 @@ class _CountryDialogState extends State<CountryDialog> {
 
   @override
   Widget build(BuildContext context) {
+    // لضمان responsiveness
+    final dialogWidth = AppSizes.widthRatio(context, 550);
+    final dialogHeight = AppSizes.heightRatio(context, 500);
+
     return BlocListener<CountryCreateCubit, CountryCreateState>(
       listener: (context, state) {
         if (state is CountryCreateSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('تمت إضافة البلد بنجاح')),
+            const SnackBar(content: Text('تمت إضافة البلد بنجاح')),
           );
           context.read<CountriesCubit>().getCountries();
-          Navigator.of(context).pop(); // يغلق الـ Dialog تلقائياً بعد النجاح
+          Navigator.of(context).pop();
         } else if (state is CountryCreateFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('فشل الإضافة: ${state.errorMessage}')),
@@ -68,100 +72,105 @@ class _CountryDialogState extends State<CountryDialog> {
             borderRadius: BorderRadius.circular(16),
           ),
           child: Container(
+            width: dialogWidth,
+            height: dialogHeight,
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
             decoration: BoxDecoration(
               color: AppColors.softGray,
               border: Border.all(color: AppColors.deepPurple, width: 3.0),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            width: AppSizes.widthRatio(context, 550),
-            height: AppSizes.heightRatio(context, 500),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                const Expanded(
-                  flex: 1,
-                  child: SizedBox(),
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 10,
+                  offset: const Offset(0, 5),
                 ),
+              ],
+            ),
+            child: Row(
+              children: [
+                // مساحة فارغة لتوازن التصميم
+                const Expanded(flex: 1, child: SizedBox()),
+
+                // العمود الرئيسي للنموذج
                 Expanded(
                   flex: 3,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.title,
-                        style: Styles.textStyle36.copyWith(
-                            fontSize: 36.sp, color: AppColors.deepPurple),
-                      ),
-                      const SizedBox(height: 20),
-                      CustomTextField(
-                        controller: nameController,
-                        hintText: 'أدخل الاسم',
-                      ),
-                      const SizedBox(height: 15),
-                      CustomTextField(
-                        controller: codeController,
-                        hintText: 'أدخل رمز البلد...',
-                      ),
-                      const SizedBox(height: 30),
-                      SizedBox(
-                        width: 182.w,
-                        height: 50.h,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            final name = nameController.text.trim();
-                            final code = codeController.text.trim();
-
-                            if (name.isEmpty || code.isEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text('يرجى إدخال الاسم والرمز')),
-                              );
-                              return;
-                            }
-
-                            // استدعاء الـ Cubit لبدء عملية الإنشاء
-                            context.read<CountryCreateCubit>().createCountry(
-                                  name: name,
-                                  code: code,
-                                );
-                          },
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(AppColors.deepPurple),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                          ),
-                          child: Text(
-                            'حفظ',
-                            style: Styles.textStyle14.copyWith(
-                                fontSize: 14.sp, color: AppColors.white),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          widget.title,
+                          style: Styles.textStyle36.copyWith(
+                            fontSize: 36.sp,
+                            color: AppColors.deepPurple,
                           ),
                         ),
-                      ),
-                    ],
+                        SizedBox(height: 25.h),
+                        CustomTextField(
+                          controller: nameController,
+                          hintText: 'أدخل الاسم',
+                        ),
+                        SizedBox(height: 20.h),
+                        CustomTextField(
+                          controller: codeController,
+                          hintText: 'أدخل رمز البلد...',
+                        ),
+                        SizedBox(height: 35.h),
+                        SizedBox(
+                          width: 182.w,
+                          height: 50.h,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              final name = nameController.text.trim();
+                              final code = codeController.text.trim();
+
+                              if (name.isEmpty || code.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('يرجى إدخال الاسم والرمز')),
+                                );
+                                return;
+                              }
+
+                              context.read<CountryCreateCubit>().createCountry(
+                                    name: name,
+                                    code: code,
+                                  );
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  AppColors.deepPurple),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              'حفظ',
+                              style: Styles.textStyle14.copyWith(
+                                  fontSize: 14.sp, color: AppColors.white),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
 
                 Expanded(
-                  // height: 15.h +
-
-                  // مجموع تقريبي لارتفاع الحقول حتى "أدخل رمز البلد"
+                  flex: 1,
                   child: Align(
-                    alignment: Alignment.bottomRight, // الصورة تبدأ من الأسفل
+                    alignment: Alignment.bottomRight,
                     child: SvgPicture.asset(
                       AssetsData.image1,
+                      width: 300.w, // تكبير الصورة
+                      height: 300.h, // تكبير الصورة
                       fit: BoxFit.contain,
                     ),
                   ),
                 ),
-                // SvgPicture.asset(
-                //   AssetsData.image1,
-                //   fit: BoxFit.cover,
-                // ),
               ],
             ),
           ),

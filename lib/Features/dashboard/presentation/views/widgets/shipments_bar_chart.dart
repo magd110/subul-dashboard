@@ -11,7 +11,7 @@ class ShipmentsBarChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white, // خلفية الكرت بيضاء
+      color: Colors.white, 
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -36,7 +36,7 @@ class ShipmentsBarChart extends StatelessWidget {
               aspectRatio: 1.5,
               child: BarChart(
                 BarChartData(
-                  backgroundColor: Colors.white, // الخلفية البيضاء داخل المخطط
+                  backgroundColor: Colors.white, 
                   alignment: BarChartAlignment.spaceAround,
                   maxY: _getMaxY(data),
                   barTouchData: BarTouchData(enabled: true),
@@ -61,7 +61,7 @@ class ShipmentsBarChart extends StatelessWidget {
                         getTitlesWidget: (value, _) {
                           final index = value.toInt();
                           return Text(
-                            '${index + 1}', // عرض رقم الشهر فقط
+                            '${index + 1}', 
                             style: const TextStyle(
                                 fontSize: 10, color: Colors.black),
                           );
@@ -78,7 +78,7 @@ class ShipmentsBarChart extends StatelessWidget {
                       barRods: [
                         BarChartRodData(
                           toY: item.count.toDouble(),
-                          color: Colors.orange, // اختر لون بارز مناسب
+                          color: Colors.orange, 
                           borderRadius: BorderRadius.circular(4),
                           width: 14,
                           backDrawRodData: BackgroundBarChartRodData(

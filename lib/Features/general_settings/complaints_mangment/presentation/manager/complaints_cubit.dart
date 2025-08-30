@@ -8,19 +8,21 @@ class ComplaintsCubit extends Cubit<ComplaintsState> {
   ComplaintsCubit(this._repo) : super(ComplaintsInitial());
 
   Future<void> fetchComplaints() async {
+    print("🔹 fetchComplaints() called");
     emit(ComplaintsLoading());
+    print("🔹 State emitted: ComplaintsLoading");
 
     final result = await _repo.getComplaints();
-
+    print("🔹 Result received from repository");
     result.fold(
-      (failure) => emit(ComplaintsFailure(failure.eerMessage)),
-      (complaints) => emit(ComplaintsSuccess(complaints)),
+      (failure) {
+        // طباعة رسالة الخطأ في الـ console
+        print("🔹 Error received from repository: ${failure.eerMessage}");
+        emit(ComplaintsFailure(failure.eerMessage));
+      },
+      (complaints) {
+        emit(ComplaintsSuccess(complaints));
+      },
     );
   }
-
-  
-
-
-
 }
-

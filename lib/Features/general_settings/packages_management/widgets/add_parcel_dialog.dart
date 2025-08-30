@@ -123,7 +123,7 @@ class _AddParcelDialogState extends State<AddParcelDialog> {
                   width: 100.w,
                   height: 250.h,
                   child: Align(
-                    alignment: Alignment.bottomRight, // الصورة تبدأ من الأسفل
+                    alignment: Alignment.bottomRight,
                     child: SvgPicture.asset(
                       AssetsData.image1,
                       fit: BoxFit.contain,

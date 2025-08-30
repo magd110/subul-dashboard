@@ -9,7 +9,7 @@ sealed class ComplaintsState extends Equatable {
   List<Object?> get props => [];
 }
 
-// حالات تحميل الشكاوي
+
 final class ComplaintsInitial extends ComplaintsState {}
 
 final class ComplaintsLoading extends ComplaintsState {}

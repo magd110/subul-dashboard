@@ -21,8 +21,8 @@ class AddButton extends StatelessWidget {
     required this.icon,
     this.width = 152,
     this.height = 60,
-    this.textColor = AppColors.black, // لون النص الافتراضي
-    this.iconColor = AppColors.white, // لون الأيقونة الافتراضي
+    this.textColor = AppColors.black, 
+    this.iconColor = AppColors.white, 
   }) : super(key: key);
 
   @override
@@ -43,7 +43,7 @@ class AddButton extends StatelessWidget {
           color: iconColor,
         ),
         label: Flexible(
-          // <<< مهم لتجنب overflow
+         
           child: Text(
             text,
             overflow: TextOverflow.ellipsis,

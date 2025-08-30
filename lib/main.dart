@@ -17,6 +17,9 @@ void main() {
   setupComplaintsFeatureLocator();
   setupComplaintDetailsFeatureLocator();
   setupDashboardFeatureLocator();
+  setupFixedCostFeatureLocator();
+  setupShipmentFeatureLocator();
+  setupSuppliersFeatureLocator();
 
   runApp(const MyApp());
 }
@@ -24,11 +27,10 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: const Size(1400, 1020), // استخدم نفس الأبعاد من Figma
+        designSize: const Size(1400, 1020),
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {

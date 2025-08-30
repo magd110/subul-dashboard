@@ -15,7 +15,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       await setToSharedPreference(
         key: 'token',
-        token: response.data ?? '',
+         token: response.data!.token!,
       );
       print("✅ Done saving, now emit success!");
       emit(AuthSuccess(response));

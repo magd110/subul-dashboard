@@ -4,13 +4,37 @@ import 'package:subul_dashboard2/Features/general_settings/user_management/prese
 import 'package:subul_dashboard2/Features/general_settings/user_management/presentation/views/widgets/user_management_body.dart';
 import 'package:subul_dashboard2/core/utils/service_locator.dart';
 
-class UserManagementView extends StatelessWidget {
+class UserManagementView extends StatefulWidget {
   const UserManagementView({super.key});
 
   @override
+  State<UserManagementView> createState() => _UserManagementViewState();
+}
+
+class _UserManagementViewState extends State<UserManagementView>
+    with AutomaticKeepAliveClientMixin {
+  late final UserCubit _userCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _userCubit = getIt<UserCubit>();
+  }
+
+  @override
+  void dispose() {
+    _userCubit.close();
+    super.dispose();
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<UserCubit>(),
+    super.build(context);
+    return BlocProvider.value(
+      value: _userCubit,
       child: const UserManagementBody(),
     );
   }

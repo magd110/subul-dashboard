@@ -5,7 +5,7 @@ class ApiService {
 
   ApiService(this._dio);
   // final String _baseUrl = 'http://10.0.2.2:8000/api/'; endPoint: "login"    '$_baseUrl$endPoint',
-  final String _baseUrl = 'http://localhost:8000/api/';
+  final String _baseUrl = 'https://bservice-iq.com/api/';
 
   Future<Map<String, dynamic>> getCountries({
     required String endPoint,
@@ -310,7 +310,6 @@ class ApiService {
     required String content,
   }) async {
     print('Calling: $_baseUrl$endPoint');
-    
 
     final response = await _dio.post(
       '$_baseUrl$endPoint',
@@ -358,16 +357,136 @@ class ApiService {
   Future<Map<String, dynamic>> getDashboardData({
     required String endPoint,
     required String token,
+    Map<String, dynamic>? queryParameters, // 👈 دعم للباراميترات
+  }) async {
+    try {
+      final response = await _dio.get(
+        '$_baseUrl$endPoint',
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+            "Content-Type": "application/json",
+          },
+        ),
+        queryParameters: queryParameters, // 👈 هنا تنضاف تلقائيًا
+      );
+
+      print("API Response: ${response.data}"); // للمراقبة
+
+      if (response.data is Map<String, dynamic>) {
+        return response.data as Map<String, dynamic>;
+      } else {
+        throw Exception("Unexpected response format: ${response.data}");
+      }
+    } catch (e) {
+      print("API Error: $e");
+      rethrow; // نرمي الخطأ عشان الـ Repo يمسكه
+    }
+  }
+
+  Future<Map<String, dynamic>> getFixedCosts({
+    required String endPoint,
+    required String token,
   }) async {
     final response = await _dio.get(
       '$_baseUrl$endPoint',
       options: Options(
         headers: {
-          "Authorization": token,
+          "Authorization": "Bearer $token",
+          "Content-Type": "application/json",
         },
       ),
     );
-    print(response.data); // للمراقبة
+
+    print(response.data);
+    return response.data;
+  }
+
+  Future<Map<String, dynamic>> updateFixedCost({
+    required String token,
+    required String value,
+    required String endPoint,
+  }) async {
+    final response = await _dio.post(
+      '$_baseUrl$endPoint',
+      data: {
+        "value": value,
+      },
+      options: Options(
+        headers: {
+          "Authorization": "Bearer $token",
+          "Content-Type": "application/json",
+        },
+      ),
+    );
+
+    return response.data;
+  }
+
+  Future<Map<String, dynamic>> getShipments({
+  required String endPoint,
+  required String token,
+  Map<String, dynamic>? queryParameters, // 👈 دعم للباراميترات
+}) async {
+  final response = await _dio.get(
+    '$_baseUrl$endPoint',
+    options: Options(
+      headers: {
+        "Authorization": "Bearer $token",
+        "Content-Type": "application/json",
+      },
+    ),
+    queryParameters: queryParameters, 
+  );
+
+  print(response.data);
+  return response.data;
+}
+
+
+  Future<Map<String, dynamic>> getSuppliers({
+    required String token,
+    required String endPoint,
+  }) async {
+    final response = await _dio.get(
+      '$_baseUrl$endPoint',
+      options: Options(
+        headers: {
+          "Authorization": "Bearer $token",
+          "Content-Type": "application/json",
+        },
+      ),
+    );
+
+    print(response.data);
+    return response.data;
+  }
+
+  Future<Map<String, dynamic>> createSupplier({
+    required String token,
+    required String endPoint,
+    required String name,
+    required String email,
+    required String phone,
+    required String address,
+  }) async {
+    final response = await _dio.post(
+      '$_baseUrl$endPoint',
+      options: Options(
+        headers: {
+          "Authorization": "Bearer $token",
+          "Content-Type": "application/json",
+        },
+      ),
+      data: {
+        "name": name,
+        "email": email,
+        "phone": phone,
+        "address": address,
+      },
+    );
+
+    print(response.data);
     return response.data;
   }
 }

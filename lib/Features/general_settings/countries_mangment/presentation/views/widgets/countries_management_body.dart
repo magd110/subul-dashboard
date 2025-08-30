@@ -27,41 +27,45 @@ class CountriesManagementBody extends StatelessWidget {
           return Column(
             children: [
               Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.white,
-                    border: Border.all(color: AppColors.deepPurple, width: 3.0),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  width: AppSizes.widthRatio(context, 856),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 10),
                   child: RefreshIndicator(
                     onRefresh: () async {
                       context.read<CountriesCubit>().getCountries();
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 20),
-                      child: GridView.builder(
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                        // padding: const EdgeInsets.all(10),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          childAspectRatio: 5,
-                        ),
-                        itemCount:
-                            countries.length, // ✅ استخدم الطول الفعلي للبيانات
-                        itemBuilder: (context, index) {
-                          final country =
-                              countries[index]; // ✅ استخدم العنصر الصحيح
-                          return Center(
+                    child: GridView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      padding: const EdgeInsets.all(10),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3, // عرض 3 أعمدة فقط
+                        crossAxisSpacing: 20,
+                        mainAxisSpacing: 20,
+                        childAspectRatio: 3, // زيادة ارتفاع كل container
+                      ),
+                      itemCount: countries.length,
+                      itemBuilder: (context, index) {
+                        final country = countries[index];
+                        return InkWell(
+                          onTap: () {},
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                  color: AppColors.deepPurple, width: 2.0),
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.05),
+                                  blurRadius: 5,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.baseline,
-                              textBaseline: TextBaseline.alphabetic,
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
                                   country.code,
@@ -70,37 +74,37 @@ class CountriesManagementBody extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(width: 10),
+                                SizedBox(width: 10.w),
                                 Expanded(
                                   child: Text(
                                     country.name,
                                     style: TextStyle(
-                                      fontSize: 30.sp,
+                                      fontSize: 22.sp,
                                       fontWeight: FontWeight.bold,
                                       color: AppColors.deepPurple,
                                     ),
+                                    maxLines: 2, // يسمح بسطرين للنص الطويل
                                     overflow: TextOverflow.ellipsis,
+                                    softWrap: true,
                                   ),
                                 ),
                               ],
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: AppSizes.heightRatio(context, 30)),
+              SizedBox(height: AppSizes.heightRatio(context, 20)),
               Align(
                 alignment: Alignment.centerRight,
                 child: AddButton(
                   text: 'إضافة بلد',
                   icon: FontAwesomeIcons.plus,
                   onPressed: () {
-                    final countriesCubit =
-                        context.read<CountriesCubit>(); // استخرج Cubit الحالي
-
+                    final countriesCubit = context.read<CountriesCubit>();
                     showDialog(
                       context: context,
                       builder: (dialogContext) {
@@ -110,10 +114,7 @@ class CountriesManagementBody extends StatelessWidget {
                               create: (_) => CountryCreateCubit(
                                   getIt.get<GetCountriesRepoImpl>()),
                             ),
-                            BlocProvider.value(
-                              // تمرير نفس الـ CountriesCubit
-                              value: countriesCubit,
-                            ),
+                            BlocProvider.value(value: countriesCubit),
                           ],
                           child: CountryDialog(title: 'إضافة بلد جديد'),
                         );

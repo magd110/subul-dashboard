@@ -69,7 +69,7 @@ class _EmployeeDialogState extends State<EmployeeDialog> {
                 child: SizedBox(),
               ),
 
-              /// المحتوى الرئيسي
+           
               Expanded(
                 flex: 3,
                 child: SingleChildScrollView(
@@ -158,7 +158,7 @@ class _EmployeeDialogState extends State<EmployeeDialog> {
                 ),
               ),
 
-              /// الصورة الجانبية
+            
               Expanded(
                 child: Align(
                   alignment: Alignment.bottomRight,

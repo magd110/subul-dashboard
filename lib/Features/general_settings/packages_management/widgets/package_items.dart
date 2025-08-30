@@ -72,7 +72,7 @@ class PackageItems extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // اسم الطرد
+                       
                         Expanded(
                           child: Text(
                             item.content,
@@ -83,8 +83,8 @@ class PackageItems extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                            width: 8), // مسافة صغيرة بين النص والأزرار
-                        // زر التبديل
+                            width: 8), 
+               
                         ToggleButtons(
                           isSelected: [
                             item.isAllowed == 1,
@@ -122,7 +122,7 @@ class PackageItems extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            // زر الإضافة في الأسفل
+         
             Align(
               alignment: Alignment.bottomLeft,
               child: GestureDetector(

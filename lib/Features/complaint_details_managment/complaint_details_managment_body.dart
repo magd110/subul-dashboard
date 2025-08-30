@@ -6,8 +6,6 @@ import 'package:subul_dashboard2/Features/complaint_details_managment/presentati
 import 'package:subul_dashboard2/Features/complaint_details_managment/widgets/reply_item.dart';
 import 'package:subul_dashboard2/core/utils/app_colors.dart';
 
-// تأكد من إضافة import الخاص بـ ReplyItem و AppColors و AppSizes حسب مشروعك
-
 class ComplaintDetailsManagmentBody extends StatefulWidget {
   final int complaintid;
 
@@ -23,111 +21,85 @@ class _ComplaintDetailsManagmentBodyState
     extends State<ComplaintDetailsManagmentBody> {
   final TextEditingController _replyController = TextEditingController();
 
-  /// ✅ نافذة إضافة الرد
   void showReplyDialog() {
     final complaintDetailsCubit = context.read<ComplaintDetailsCubit>();
 
     showDialog(
       context: context,
       builder: (context) {
-        return Directionality(
-          textDirection: TextDirection.rtl,
-          child: Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Container(
-              padding: const EdgeInsets.all(24),
-              height: 450,
-              width: 600,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const SizedBox(height: 20),
-                  Row(
-                    children: const [
-                      Icon(Icons.chat, color: Colors.deepPurple, size: 28),
-                      SizedBox(width: 15),
-                      Text(
-                        'إضافة رد:',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          color: Colors.deepPurple,
-                        ),
-                      ),
-                    ],
+        return Dialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: Container(
+            padding: const EdgeInsets.all(24),
+            width: 500,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.chat_bubble,
+                    color: Colors.deepPurple, size: 40),
+                const SizedBox(height: 12),
+                Text(
+                  "إضافة رد",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22.sp,
+                    color: AppColors.deepPurple,
                   ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    controller: _replyController,
-                    maxLines: 4,
-                    decoration: InputDecoration(
-                      hintText: 'أدخل ردك هنا...',
-                      filled: true,
-                      fillColor: Colors.white,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Colors.deepPurple, width: 2.0),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Colors.deepPurple, width: 2.0),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _replyController,
+                  maxLines: 4,
+                  decoration: InputDecoration(
+                    hintText: 'أدخل ردك هنا...',
+                    filled: true,
+                    fillColor: Colors.grey.shade50,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  const SizedBox(height: 24),
-                  SizedBox(
-                    width: 182,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        final replyContent = _replyController.text.trim();
-                        if (replyContent.isNotEmpty) {
-                          final success =
-                              await complaintDetailsCubit.addComplaintResponse(
-                            complaintId: widget.complaintid,
-                            content: replyContent,
-                          );
-                          if (success) {
-                            if (Navigator.canPop(context)) {
-                              Navigator.of(context).pop(); // إغلاق الديالوج
-                            }
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text('تم إضافة الرد بنجاح')),
-                            );
-                            _replyController.clear();
-                          }
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('يرجى إدخال رد قبل الحفظ'),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.goldenYellow,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () async {
+                    final replyContent = _replyController.text.trim();
+                    if (replyContent.isNotEmpty) {
+                      final success =
+                          await complaintDetailsCubit.addComplaintResponse(
+                        complaintId: widget.complaintid,
+                        content: replyContent,
+                      );
+                      if (success && mounted) {
+                        Navigator.of(context).pop();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('تم إضافة الرد بنجاح')),
+                        );
+                        _replyController.clear();
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('يرجى إدخال رد قبل الحفظ'),
+                          backgroundColor: Colors.red,
                         ),
-                      ),
-                      child: const Text(
-                        'حفظ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.deepPurple,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 32, vertical: 14),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
                   ),
-                ],
-              ),
+                  child: const Text(
+                    "حفظ",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+                ),
+              ],
             ),
           ),
         );
@@ -137,179 +109,217 @@ class _ComplaintDetailsManagmentBodyState
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ComplaintDetailsCubit, ComplaintDetailsState>(
-      listener: (context, state) {
-        if (state.addReplyStatus == AddReplyStatus.error) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-                content: Text('فشل في إضافة الرد: ${state.addReplyError}')),
+    return BlocBuilder<ComplaintDetailsCubit, ComplaintDetailsState>(
+      builder: (context, state) {
+        if (state.isLoadingDetails) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
           );
         }
-      },
-      child: BlocBuilder<ComplaintDetailsCubit, ComplaintDetailsState>(
-        builder: (context, state) {
-          if (state.isLoadingDetails) {
-            return const Scaffold(
-              body: Center(child: CircularProgressIndicator()),
-            );
-          }
 
-          if (state.detailsError != null) {
-            return Scaffold(
-              body: Center(child: Text('حدث خطأ: ${state.detailsError}')),
-            );
-          }
+        if (state.detailsError != null) {
+          return Scaffold(
+            body: Center(child: Text('حدث خطأ: ${state.detailsError}')),
+          );
+        }
 
-          final complaint = state.complaint;
-          final replies = complaint?.responses ?? [];
+        final complaint = state.complaint;
+        final replies = complaint?.responses ?? [];
 
-          if (complaint == null) {
-            return const Scaffold(
-              body: Center(child: Text('لا توجد تفاصيل متاحة')),
-            );
-          }
+        if (complaint == null) {
+          return const Scaffold(
+            body: Center(child: Text('لا توجد تفاصيل متاحة')),
+          );
+        }
 
-          return Directionality(
-            textDirection: TextDirection.rtl,
-            child: Scaffold(
-              appBar: AppBar(
-                backgroundColor: AppColors.goldenYellow,
-                title: Text(
-                  'تفاصيل الشكوى',
-                  style: TextStyle(
-                    color: AppColors.deepPurple,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                centerTitle: true,
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: Scaffold(
+            backgroundColor: Colors.grey.shade100,
+            appBar: AppBar(
+              backgroundColor: AppColors.deepPurple,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
               ),
-              body: Container(
-                padding: const EdgeInsets.all(16),
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      AppColors.softGray,
-                      AppColors.white,
-                    ],
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    /// ✅ الوصف
-                    Text(
-                      "الوصف:",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.sp,
-                        color: AppColors.black,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      complaint.description,
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
+              title: Text(
+                'تفاصيل الشكوى',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.bold),
+              ),
+              centerTitle: true,
+              elevation: 4,
+            ),
+            body: SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 16),
 
-                    /// ✅ الحالة
-                    Row(
-                      children: [
-                        Text(
-                          'الحالة: ',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18.sp,
-                            color: AppColors.black,
-                          ),
+                  // بطاقة الوصف
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: 300, // أقصى عرض مناسب للشاشات الكبيرة
+                    ),
+                    child: Card(
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          mainAxisSize:
+                              MainAxisSize.min, // الحجم يتناسب مع المحتوى
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "الوصف:",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.sp,
+                                color: AppColors.deepPurple,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              complaint.description,
+                              style: TextStyle(fontSize: 16.sp),
+                            ),
+                          ],
                         ),
-                        Text(
-                          complaint.isSolved == 1 ? 'محلولة' : 'غير محلولة',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+// بطاقة الحالة
+                  Card(
+                    color: complaint.isSolved == 1
+                        ? Colors.green.shade50
+                        : Colors.orange.shade50,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 12),
+                      child: Row(
+                        mainAxisSize: MainAxisSize
+                            .min, // 👈 البطاقة تتوسع حسب المحتوى فقط
+                        children: [
+                          Icon(
+                            complaint.isSolved == 1
+                                ? Icons.check_circle
+                                : Icons.error_outline,
                             color: complaint.isSolved == 1
                                 ? Colors.green
-                                : Colors.red,
+                                : Colors.orange,
+                            size: 28,
                           ),
-                        ),
-                      ],
+                          const SizedBox(width: 12),
+                          Text(
+                            complaint.isSolved == 1
+                                ? "محلولة"
+                                : "في انتظار المعالجة",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.sp,
+                              color: complaint.isSolved == 1
+                                  ? Colors.green
+                                  : Colors.orange,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    const SizedBox(height: 20),
+                  ),
 
-                    /// ✅ الردود
-                    Text(
-                      "الردود:",
+                  /// 🟪 الردود
+                  Text("الردود:",
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.sp,
-                        color: AppColors.black,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.sp,
+                          color: AppColors.deepPurple)),
+                  const SizedBox(height: 8),
 
-                    Expanded(
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey.shade300),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: replies.isEmpty
-                            ? const Center(child: Text('لا توجد ردود حتى الآن'))
-                            : ListView.builder(
-                                padding: const EdgeInsets.all(16),
-                                itemCount: replies.length,
-                                itemBuilder: (context, index) {
-                                  final reply = replies[index];
-                                  return Column(
-                                    children: [
-                                      ReplyItem(
-                                        replyText: reply.content,
-                                        date: reply.createdAt ?? '',
-                                        userName: reply.userName ?? '',
-                                        userRole: reply.userRole ?? '',
-                                      ),
-                                      const SizedBox(height: 12),
-                                    ],
-                                  );
-                                },
+                  replies.isEmpty
+                      ? Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Center(
+                              child: Text("لا توجد ردود حتى الآن",
+                                  style: TextStyle(fontSize: 16.sp)),
+                            ),
+                          ),
+                        )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: replies.length,
+                          itemBuilder: (context, index) {
+                            final reply = replies[index];
+                            return Align(
+                              alignment:
+                                  Alignment.center, // محاذاة البطاقة إلى اليمين
+                              child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxWidth:
+                                      500, // أقصى عرض مناسب للردود القصيرة والمتوسطة
+                                ),
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  color: Colors.white,
+                                  elevation: 2,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12, vertical: 8),
+                                    child: ReplyItem(
+                                      replyText: reply.content,
+                                      date: reply.createdAt ?? '',
+                                      userName: reply.userName ?? '',
+                                      userRole: reply.userRole ?? '',
+                                    ),
+                                  ),
+                                ),
                               ),
+                            );
+                          },
+                        ),
+
+                  const SizedBox(height: 20),
+
+                  /// 🟪 زر إضافة رد
+                  Center(
+                    child: ElevatedButton.icon(
+                      onPressed: showReplyDialog,
+                      icon: const Icon(Icons.add_comment, color: Colors.white),
+                      label: const Text(
+                        'إضافة رد',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.deepPurple,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 32, vertical: 14),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                        elevation: 4,
                       ),
                     ),
-
-                    const SizedBox(height: 12),
-
-                    Center(
-                      child: ElevatedButton.icon(
-                        onPressed: showReplyDialog,
-                        icon: const Icon(Icons.chat),
-                        label: const Text(
-                          'أضف رد',
-                          style: TextStyle(color: AppColors.deepPurple),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.goldenYellow,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 12),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12)),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

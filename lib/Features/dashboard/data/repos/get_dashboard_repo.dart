@@ -3,5 +3,10 @@ import 'package:subul_dashboard2/Features/dashboard/data/models/dashboard_statis
 import 'package:subul_dashboard2/core/errors/failures.dart';
 
 abstract class GetDashboardRepo {
-  Future<Either<Failure, DashboardStatisticsModel>> getDashboardStatistics();
+  Future<Either<Failure, DashboardStatisticsModel>> getDashboardStatistics({
+    String? fromDate,
+    String? toDate,
+    String? status,
+    int? customerId,
+  });
 }

@@ -7,14 +7,25 @@ class DashboardCubit extends Cubit<DashboardState> {
 
   DashboardCubit(this._dashboardRepo) : super(DashboardInitial());
 
-  Future<void> fetchDashboardStatistics() async {
-    emit(DashboardLoading());
+Future<void> fetchDashboardStatistics({
+  String? fromDate,
+  String? toDate,
+  String? status,
+  int? customerId,
+}) async {
+  emit(DashboardLoading());
 
-    final result = await _dashboardRepo.getDashboardStatistics();
+  final result = await _dashboardRepo.getDashboardStatistics(
+    fromDate: fromDate,
+    toDate: toDate,
+    status: status,
+    customerId: customerId,
+  );
 
-    result.fold(
-      (failure) => emit(DashboardFailure(failure.eerMessage)),
-      (dashboardData) => emit(DashboardSuccess(dashboardData)),
-    );
-  }
+  result.fold(
+    (failure) => emit(DashboardFailure(failure.eerMessage)), // تصحيح الاسم
+    (dashboardData) => emit(DashboardSuccess(dashboardData)),
+  );
+}
+
 }

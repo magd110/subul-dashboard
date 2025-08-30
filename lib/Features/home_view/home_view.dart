@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:subul_dashboard2/Features/dashboard/presentation/views/dashboard_view.dart';
 import 'package:subul_dashboard2/Features/general_settings/general_settings_view.dart';
 import 'package:subul_dashboard2/Features/home_view/widgets/side_bar.dart';
-import 'package:subul_dashboard2/Features/suppliers_mangment/suppliers_mangment_view.dart';
+import 'package:subul_dashboard2/Features/suppliers_mangment/presentation/views/suppliers_mangment_view.dart';
 import 'package:subul_dashboard2/core/utils/app_colors.dart';
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -17,7 +17,7 @@ class _HomeViewState extends State<HomeView> {
   final List<Widget> _screens = [
     // const M(),
     const GeneralSettingsView(),
-    SuppliersMangmentView(),
+    SuppliersManagementView(),
     DashboardView()
   ];
 

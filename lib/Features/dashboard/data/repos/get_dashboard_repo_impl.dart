@@ -13,14 +13,27 @@ class GetDashboardRepoImpl implements GetDashboardRepo {
   GetDashboardRepoImpl(this._apiService);
 
   @override
-  Future<Either<Failure, DashboardStatisticsModel>>
-      getDashboardStatistics() async {
+  Future<Either<Failure, DashboardStatisticsModel>> getDashboardStatistics({
+    String? fromDate,
+    String? toDate,
+    String? status,
+    int? customerId,
+  }) async {
     try {
       final token = prefs.getString('token') ?? '';
 
+      // بناء الـ query params بشكل ديناميكي
+      final queryParams = {
+        if (fromDate != null) 'from_date': fromDate,
+        if (toDate != null) 'to_date': toDate,
+        if (status != null) 'status': status,
+        if (customerId != null) 'customer_id': customerId.toString(),
+      };
+
       final responseData = await _apiService.getDashboardData(
         endPoint: "get/statistics",
-        token: "Bearer $token",
+        token: token,
+        queryParameters: queryParams,
       );
 
       final dashboardResponse = DashboardResponseModel.fromJson(responseData);

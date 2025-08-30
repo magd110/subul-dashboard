@@ -29,7 +29,7 @@ class ReplyItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// ✅ الاسم والدور
+        
           if (userName != null || userRole != null)
             Row(
               children: [
@@ -47,7 +47,6 @@ class ReplyItem extends StatelessWidget {
 
           SizedBox(height: 12),
 
-          /// ✅ محتوى الرد
           Text(
             replyText,
             style: TextStyle(
@@ -59,7 +58,7 @@ class ReplyItem extends StatelessWidget {
 
           SizedBox(height: 12),
 
-          /// ✅ التاريخ
+         
           Row(
             children: [
               Icon(Icons.access_time, color: Colors.grey, size: 18),
